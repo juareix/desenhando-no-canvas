@@ -5,19 +5,22 @@ let mouseX = 0;
 let mouseY = 0;
 
 let screen = document.querySelector('#tela');
-let ctx = screen.getContext('2d');
+let ctx = screen.getContext('2d'); //especificA o contextp da tela 2d ou 3d
 
 //eventos
 document.querySelectorAll('.colorArea .color').forEach(item => {
     item.addEventListener('click', colorClickEvent);
 });
 
+//detectando os eventos de mouse na tela canvas declarada como screen
 screen.addEventListener('mousedown', mouseDownEvent);
 screen.addEventListener('mousemove', mouseMoveEvent);
 screen.addEventListener('mouseup', mouseUpEvent);
 document.querySelector('.clear').addEventListener('click', clearScreen);
 
 //funcoes
+
+//VERIFICA QUAL COR CLICADA 
 function colorClickEvent(e){
     let color = e.target.getAttribute('data-color');
     //console.log("COR CLICADA: ", color);
@@ -27,10 +30,10 @@ function colorClickEvent(e){
     e.target.classList.add('active');
 }
 
-function mouseDownEvent(){
+function mouseDownEvent(e){
     //console.log('clickou');
     canDraw = true;
-    mouseX = e.pageX - screen.offsetLeft;
+    mouseX = e.pageX - screen.offsetLeft; //ajustando as dimensoes da tela canvas
     mouseY = e.pageY - screen.offseTop;
 
 }
@@ -50,9 +53,9 @@ function draw(x, y){
     let pointX = x - screen.offsetLeft;
     let pointY = y - screen.offsetTop;
 
-    ctx.beginPath();
-    ctx.lineWidth = 5;
-    ctx.lineJoin = "round";
+    ctx.beginPath();//comanda q sera escrito linha
+    ctx.lineWidth = 5;//largura da linha
+    ctx.lineJoin = "round";//arrendonda a linha
     ctx.moveTo(mouseX, mouseY);
     ctx.lineTo(pointX, pointY);
     ctx.closePath();
